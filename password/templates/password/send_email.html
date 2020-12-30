@@ -1,0 +1,25 @@
+{% extends 'password/home.html' %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    {% block content %}
+    <form action="{% url 'send_password_to_email' %}" method="POST">
+      {% csrf_token %}
+      <input type="text" placeholder="Name" name="name">
+      <input type="text" placeholder="Email" name="email">
+      <button type="submit" name="send_email">Send</button>
+  </form>
+    {% endblock %}
+
+  </body>
+</html>
