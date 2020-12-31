@@ -24,20 +24,23 @@ def home(request):
             
         for x in range(length):
             random_password += random.choice(raw_password)
+    
        
     if request.method == "POST" and 'send_email' in request.POST:
-        new_password = {'thepassword':random_password}
-        content = ('Hi ' + name + ',' + '\n' 
-                + '\n' + '\n' + 'Thank you for using the Password Randomizer.' 
-                + '\n' + '\n' + 'Here is your password: ' + str(new_password)
-                + '\n' + '\n' + '\n' + '\n' +
-                'Thank you!,' + '\n' + '\n' + 'Password Randomizer'
-                )
-        send_mail('Password Randomizer', content, 'manalo.website@gmail.com', [email], fail_silently=False)
-        
-        return render(request, 'password/home.html', new_password)    
+        if email != "" and name != "" and new_password != "":
+            content = ('Hi ' + name + ',' + '\n' 
+                    + '\n' + '\n' + 'Thank you for using the Password Randomizer.' 
+                    + '\n' + '\n' + 'Here is your password: ' + new_password
+                    + '\n' + '\n' + '\n' + '\n' +
+                    'Thank you!,' + '\n' + '\n' + 'Password Randomizer'
+                    )
+            send_mail('Password Randomizer', content, 'manalo.website@gmail.com', [email], fail_silently=False)
+        else:
+            message = 'Please enter your Name and Email'
+            return render(request, 'password/home.html', {'thepassword':random_password, 'message': message})    
     
-    return render(request, 'password/home.html', new_password)
+    return render(request, 'password/home.html', {'thepassword':random_password}) 
+    
 
 
 
